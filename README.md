@@ -1,5 +1,4 @@
 # ColorChain
-Firebase API Key - AIzaSyDHajwQ0xG8F9IpSbZvJe7SkI7OZYpuBxM
 
 
 # Following changes are needed to be made:
