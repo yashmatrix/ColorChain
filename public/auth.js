@@ -5,6 +5,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+import { config } from './config.js';
 
 import {
   getAuth,
@@ -23,7 +24,7 @@ import {
 //  Get these from: Firebase Console → Project Settings → Your apps
 // ─────────────────────────────────────────────
 const firebaseConfig = {
-    apiKey: "AIzaSyDHajwQ0xG8F9IpSbZvJe7SkI7OZYpuBxM",
+    apiKey: `${config.apiKey}`,
     authDomain: "colorchain-ec651.firebaseapp.com",
     databaseURL: "https://colorchain-ec651-default-rtdb.firebaseio.com/",
     projectId: "colorchain-ec651",
