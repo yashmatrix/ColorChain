@@ -1,10 +1,11 @@
-
 // ═══════════════════════════════════════════════════════
 //  auth.js — Firebase Authentication for ColorChain
 //  Supports: Email/Password + Google Sign-In
 // ═══════════════════════════════════════════════════════
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -13,6 +14,7 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 
 
@@ -21,8 +23,9 @@ import {
 //  Get these from: Firebase Console → Project Settings → Your apps
 // ─────────────────────────────────────────────
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: "AIzaSyDHajwQ0xG8F9IpSbZvJe7SkI7OZYpuBxM",
     authDomain: "colorchain-ec651.firebaseapp.com",
+    databaseURL: "https://colorchain-ec651-default-rtdb.firebaseio.com/",
     projectId: "colorchain-ec651",
     storageBucket: "colorchain-ec651.firebasestorage.app",
     messagingSenderId: "788372812637",
@@ -30,7 +33,9 @@ const firebaseConfig = {
     measurementId: "G-6WZLBGYYH3"
 };
 
+
 const app      = initializeApp(firebaseConfig);
+export const database = getDatabase(app);
 const auth     = getAuth(app);
 const provider = new GoogleAuthProvider();
 
@@ -40,6 +45,7 @@ const gamePage = document.getElementById("game-page");
 const errorBox = document.getElementById("auth-error");
 
 const signupEmailEl    = document.getElementById("signup-email");
+const signupUsernameEl = document.getElementById("signup-username");
 const signupPasswordEl = document.getElementById("signup-password");
 const signupBtn        = document.getElementById("signup-btn");
 const googleSignupBtn  = document.getElementById("google-signup-btn");
@@ -54,34 +60,39 @@ const userAvatar = document.getElementById("user-avatar");
 const userNameEl = document.getElementById("user-name");
 const userEmail  = document.getElementById("user-email");
 const userUid    = document.getElementById("user-uid");
+const gUserBlock = document.getElementById("g-user-block");
 
 // ── Auth state gatekeeper ──
 onAuthStateChanged(auth, (user) => {
   if (user) {
     authPage.style.display = "none";
     gamePage.style.display = "flex";
-    const name = user.displayName || user.email.split("@")[0];
+    gUserBlock.style.display = "flex";
+    const name = user.displayName;
     userAvatar.textContent = name.charAt(0).toUpperCase();
     userNameEl.textContent = name;
     userEmail.textContent  = user.email;
     userUid.textContent    = user.uid;
-    if (user.photoURL) {
-      userAvatar.style.backgroundImage = `url(${user.photoURL})`;
-      userAvatar.style.backgroundSize  = "cover";
-      userAvatar.textContent           = "";
-    }
   } else {
     gamePage.style.display = "none";
+    gUserBlock.style.display = "none";
     authPage.style.display = "block";
   }
 });
 
 // ── Sign up ──
 signupBtn.addEventListener("click", async () => {
-  const email = signupEmailEl.value.trim(), password = signupPasswordEl.value;
-  if (!email || !password) { showError("Please fill in both fields."); return; }
+  const email    = signupEmailEl.value.trim();
+  const username = signupUsernameEl.value.trim();
+  const password = signupPasswordEl.value;
+  if (!email || !password) { showError("Please fill in all fields."); return; }
+  if (!username) { showError("Please choose a username."); return; }
   signupBtn.textContent = "Creating account…"; signupBtn.disabled = true;
-  try { await createUserWithEmailAndPassword(auth, email, password); clearError(); }
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(cred.user, { displayName: username });
+    clearError();
+  }
   catch (err) { showError(friendlyError(err.code)); }
   finally { signupBtn.textContent = "Create Account"; signupBtn.disabled = false; }
 });
@@ -108,6 +119,7 @@ googleLoginBtn.addEventListener("click",  googleSignIn);
 logoutBtn.addEventListener("click", () => signOut(auth));
 
 // ── Enter key ──
+signupUsernameEl.addEventListener("keydown", (e) => { if (e.key === "Enter") signupPasswordEl.focus(); });
 signupPasswordEl.addEventListener("keydown", (e) => { if (e.key === "Enter") signupBtn.click(); });
 loginPasswordEl.addEventListener("keydown",  (e) => { if (e.key === "Enter") loginBtn.click(); });
 

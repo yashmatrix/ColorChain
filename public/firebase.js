@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: "AIzaSyDHajwQ0xG8F9IpSbZvJe7SkI7OZYpuBxM",
     authDomain: "colorchain-ec651.firebaseapp.com",
     projectId: "colorchain-ec651",
     storageBucket: "colorchain-ec651.firebasestorage.app",
@@ -10,5 +10,6 @@ const firebaseConfig = {
     measurementId: "G-6WZLBGYYH3"
 };
 
-export const app = initializeApp(firebaseConfig);
-console.log(app);
+// export const app = initializeApp(firebaseConfig);
+// export const database = getDatabase(app);
+// console.log(app);

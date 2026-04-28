@@ -356,56 +356,7 @@ body {
     animation: shift 5s linear infinite;
 }
 
-.g-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.g-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--c5), var(--c6));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 13px;
-    color: #0b0b0e;
-    background-size: cover;
-}
-
-.g-name {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.g-email {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.btn-out {
-    font-family: 'Figtree', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 7px 16px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: none;
-    color: var(--muted);
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-}
-
-.btn-out:hover {
-    color: var(--text);
-    border-color: rgba(255, 255, 255, 0.15);
-}
+/* g-user, g-avatar, g-name, g-email, btn-out styles are defined in style.css */
 
 .game-body {
     background: var(--surface);

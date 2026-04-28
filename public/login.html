@@ -40,6 +40,10 @@
                             <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" />
                         </div>
                         <div class="field">
+                            <label>Username</label>
+                            <input type="text" id="signup-username" placeholder="Choose a username" autocomplete="username" />
+                        </div>
+                        <div class="field">
                             <label>Password</label>
                             <input type="password" id="signup-password" placeholder="Min. 6 characters"
                                 autocomplete="new-password" />
@@ -94,33 +98,15 @@
 
                 <div id="auth-error"></div>
             </div>
-
+<!-- 
             <div class="footer-note">
                 By continuing you agree to the <a href="#" style="color:var(--muted)">Terms of Service</a>
-            </div>
+            </div> -->
         </div>
     </div>
 
 
     <!-- ═══════════════ GAME PAGE ═══════════════ -->
-    <!-- <div id="game-page">
-    <div class="game-topbar">
-      <div class="g-logo">ColorChain</div>
-      <div class="g-user">
-        <div class="g-avatar" id="user-avatar">?</div>
-        <div>
-          <div class="g-name"  id="user-name">Player</div>
-          <div class="g-email" id="user-email"></div>
-        </div>
-      </div>
-      <button class="btn-out" id="logout-btn">Sign out</button>
-    </div>
-    <div class="game-body">
-      <h2>Your game goes here 🎮</h2>
-      <p>Replace this with your ColorChain game content.</p>
-      <div class="uid">uid: <span id="user-uid"></span></div>
-    </div>
-  </div> -->
     <div id="game-page">
 
         <div class="g-logo">ColorChain</div>
@@ -131,37 +117,84 @@
             <div class="game-btn orange" data-color="orange"></div>
             <div class="game-btn violet" data-color="violet"></div>
         </div>
-        <div id="leaderboard">
-            <h4>High Scores</h4>
-            <ol id="lb-list"></ol>
-        </div>
-        <button id="startBtn">
-            Start
+
+        <!-- Leaderboard (sidebar, shown during game) -->
+
+        <!-- Improved Start Button -->
+        <button id="startBtn" class="btn">
+                Start
         </button>
-        <div class="g-user">
-            <div class="g-avatar" id="user-avatar">?</div>
-            <div>
-                <div class="g-name" id="user-name">Player</div>
-                <div class="g-email" id="user-email"></div>
-            </div>
-            <button class="btn-out" id="logout-btn">Log out</button>
-        </div>
-        
-        
-      <div class="uid">uid: <span id="user-uid"></span></div>
+
+        <!-- User info — fixed bottom right (moved out of game-page flow) -->
+        <div class="uid">uid: <span id="user-uid"></span></div>
+
     </div>
 
-    
-  <script type="module" src="app.js" defer></script>
+    <!-- User info block — fixed bottom right -->
+    <div class="g-user" id="g-user-block" style="display:none">
+        <div class="g-avatar" id="user-avatar">?</div>
+        <div>
+            <div class="g-name" id="user-name">Player</div>
+            <div class="g-email" id="user-email"></div>
+        </div>
+        <button class="btn-out" id="logout-btn">Log out</button>
+    </div>
+
+
+    <!-- ═══════════════ GAME OVER OVERLAY ═══════════════ -->
+    <div id="gameover-overlay">
+        <div class="go-content">
+
+            <!-- Left: modal card -->
+            <div class="go-modal">
+
+                <div class="go-icon">💀</div>
+                <div class="go-title">Game Over</div>
+
+                <!-- Score cards -->
+                <div class="go-scores">
+                    <div class="go-score-card">
+                        <div class="go-score-label">Score</div>
+                        <div class="go-score-value" id="go-score">0</div>
+                    </div>
+                    <div class="go-score-card best">
+                        <div class="go-score-label">Best</div>
+                        <div class="go-score-value" id="go-best">0</div>
+                    </div>
+                </div>
+
+                <!-- Play Again -->
+                <button id="go-play-again">
+                    <span class="btn-inner">
+                        <span class="btn-icon"></span>
+                        Play Again
+                    </span>
+                </button>
+
+            </div>
+
+            <!-- Right: leaderboard panel -->
+            <div class="go-side-lb">
+                <div class="go-lb-title">Leaderboard</div>
+                <ol class="go-lb-list" id="go-lb-list">
+                    <!-- Populated by JS -->
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="module" src="app.js" defer></script>
     <script type="module" src="auth.js"></script>
 
     <script>
         // ── Tab switching ──
         const tabSignup = document.getElementById('tab-signup');
-        const tabLogin = document.getElementById('tab-login');
+        const tabLogin  = document.getElementById('tab-login');
         const signupForm = document.getElementById('signup-form');
-        const loginForm = document.getElementById('login-form');
-        const errorBox = document.getElementById('auth-error');
+        const loginForm  = document.getElementById('login-form');
+        const errorBox   = document.getElementById('auth-error');
 
         function switchTab(active, inactive, showForm, hideForm) {
             active.classList.add('active');
@@ -172,8 +205,50 @@
         }
 
         tabSignup.addEventListener('click', () => switchTab(tabSignup, tabLogin, signupForm, loginForm));
-        tabLogin.addEventListener('click', () => switchTab(tabLogin, tabSignup, loginForm, signupForm));
+        tabLogin.addEventListener('click',  () => switchTab(tabLogin, tabSignup, loginForm, signupForm));
+
+        // ── Game Over overlay helpers ──
+        // Call window.showGameOver(score, best, leaderboardEntries, playerRank) from app.js
+        // leaderboardEntries: [{ name, score, isPlayer }]
+        window.showGameOver = function(score, best, entries, playerRank) {
+            document.getElementById('go-score').textContent = score;
+            document.getElementById('go-best').textContent  = best;
+
+            const list = document.getElementById('go-lb-list');
+            list.innerHTML = '';
+            (entries || []).forEach((entry, i) => {
+                const li = document.createElement('li');
+                if (entry.isPlayer) li.classList.add('highlighted');
+                li.innerHTML = `
+                    <span class="go-lb-rank">${i + 1}</span>
+                    <span class="go-lb-name">${entry.name || 'Anonymous'}${entry.isNew ? '<span class="go-new-badge">NEW</span>' : ''}</span>
+                    <span class="go-lb-score">${entry.score}</span>
+                `;
+                list.appendChild(li);
+            });
+
+            const overlay = document.getElementById('gameover-overlay');
+            overlay.classList.add('show');
+        };
+
+        window.hideGameOver = function() {
+            const overlay = document.getElementById('gameover-overlay');
+            overlay.classList.remove('show');
+        };
+
+        // Play again button in modal
+        document.getElementById('go-play-again').addEventListener('click', () => {
+            window.hideGameOver();
+            // Trigger the same start action as the main start button
+            document.getElementById('startBtn').click();
+        });
+
+        // Also allow clicking outside modal to dismiss (optional)
+        document.getElementById('gameover-overlay').addEventListener('click', function(e) {
+            if (e.target === this) window.hideGameOver();
+        });
     </script>
+    <script type="module" src="database.js"></script>
 </body>
 
 </html>
