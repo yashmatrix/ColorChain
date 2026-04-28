@@ -28,7 +28,8 @@ function levelUp() {
 document.querySelectorAll('.game-btn').forEach(btn => {
     btn.addEventListener('click', function () {
         if (!started) return;
-        userFlash(this); pressAnim(this);
+        userFlash(this); 
+        pressAnim(this);
         userSeq.push(this.dataset.color);
         checkAns(userSeq.length - 1);
     });
@@ -36,7 +37,7 @@ document.querySelectorAll('.game-btn').forEach(btn => {
 
 async function checkAns(idx) {
     if (userSeq[idx] === gameSeq[idx]) {
-        if (userSeq.length === gameSeq.length) { userSeq = []; setTimeout(levelUp, 800); }
+        if (userSeq.length === gameSeq.length) { userSeq = []; setTimeout(levelUp, 500); }
     } else {
         bodyFlash();
         const finalScore = level - 1;
@@ -46,8 +47,6 @@ async function checkAns(idx) {
         const user = auth.currentUser;
         const currentUid = user ? user.uid : null;
         const displayName = user ? (user.displayName || user.email.split('@')[0]) : 'You';
-
-        status.innerHTML = `Game over! Score: <b style="color:#fff">${finalScore}</b><br>Best: <b style="color:#ffd700">${getHigh()}</b><br>Press any key or click Start`;
 
         // Reset game state immediately so the player can restart
         gameSeq = []; userSeq = []; level = 0; started = false;
