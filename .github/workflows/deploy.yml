@@ -24,3 +24,5 @@ jobs:
           publish_dir: docs
           exclude_assets: ''
           force_orphan: true
+          source: .
+          destination: _site
