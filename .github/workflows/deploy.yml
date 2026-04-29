@@ -14,6 +14,8 @@ jobs:
         run: |
           echo "export const config = { apiKey: '${{ secrets.API_KEY }}' };" > docs/config.js
           touch docs/.nojekyll
+          cat docs/config.js
+          ls docs/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
