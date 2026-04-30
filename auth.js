@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
 
   const name  = user.displayName || user.email || "?"; // ✅ fallback chain
   userAvatar.textContent = name.charAt(0).toUpperCase();
-  userNameEl.textContent = user.displayName || "Anonymous";
+  userNameEl.textContent = user.displayName;
   userEmail.textContent  = user.email;
   userUid.textContent    = user.uid;
 });
