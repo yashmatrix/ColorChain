@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Create config.js and .nojekyll
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          echo "export const config = { apiKey: '${{ secrets.API_KEY }}' };" > docs/config.js
+          echo "export const config = { apiKey: '${API_KEY}' };" > docs/config.js
           touch docs/.nojekyll
-          cat docs/config.js
           ls docs/
 
       - name: Deploy to GitHub Pages

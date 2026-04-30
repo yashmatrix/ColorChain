@@ -5,7 +5,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
-import { config } from '/ColorChain/config.js';
+import { config } from './config.js';
 
 import {
   getAuth,
@@ -21,10 +21,10 @@ import {
 
 // ─────────────────────────────────────────────
 //  YOUR FIREBASE CONFIG
-//  Get these from: Firebase Console → Project Settings → Your apps
+//  Injected from GitHub Secrets via GitHub Actions
 // ─────────────────────────────────────────────
 const firebaseConfig = {
-    apiKey: `${config.apiKey}`,
+    apiKey: config.apiKey,
     authDomain: "colorchain-ec651.firebaseapp.com",
     databaseURL: "https://colorchain-ec651-default-rtdb.firebaseio.com/",
     projectId: "colorchain-ec651",
@@ -33,6 +33,7 @@ const firebaseConfig = {
     appId: "1:788372812637:web:ce98da8d9654c124372eb4",
     measurementId: "G-6WZLBGYYH3"
 };
+
 
 
 const app      = initializeApp(firebaseConfig);
@@ -65,20 +66,22 @@ const gUserBlock = document.getElementById("g-user-block");
 
 // ── Auth state gatekeeper ──
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    authPage.style.display = "none";
-    gamePage.style.display = "flex";
-    gUserBlock.style.display = "flex";
-    const name = user.displayName;
-    userAvatar.textContent = name.charAt(0).toUpperCase();
-    userNameEl.textContent = name;
-    userEmail.textContent  = user.email;
-    userUid.textContent    = user.uid;
-  } else {
+  if (!user) {
     gamePage.style.display = "none";
     gUserBlock.style.display = "none";
     authPage.style.display = "block";
+    return;
   }
+
+  authPage.style.display = "none";
+  gamePage.style.display = "flex";
+  gUserBlock.style.display = "flex";
+
+  const name  = user.displayName || user.email || "?"; // ✅ fallback chain
+  userAvatar.textContent = name.charAt(0).toUpperCase();
+  userNameEl.textContent = user.displayName || "Anonymous";
+  userEmail.textContent  = user.email;
+  userUid.textContent    = user.uid;
 });
 
 // ── Sign up ──

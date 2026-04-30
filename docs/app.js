@@ -1,6 +1,7 @@
 import { saveHighScore, getPlayerHighScore, getLeaderboard } from './database.js';
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { config } from '/ColorChain/config.js';
+// import { config } from '/ColorChain/config.js';
+import { config } from './config.js';
 
 let userSeq = [], gameSeq = [], scoreSeq = [];
 let started = false, level = 0;
