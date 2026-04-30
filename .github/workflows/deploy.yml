@@ -23,7 +23,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs
-          exclude_assets: ''
-          force_orphan: true
-          source: .
-          destination: _site
