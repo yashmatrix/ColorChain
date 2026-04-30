@@ -50,12 +50,10 @@ const signupEmailEl    = document.getElementById("signup-email");
 const signupUsernameEl = document.getElementById("signup-username");
 const signupPasswordEl = document.getElementById("signup-password");
 const signupBtn        = document.getElementById("signup-btn");
-const googleSignupBtn  = document.getElementById("google-signup-btn");
 
 const loginEmailEl    = document.getElementById("login-email");
 const loginPasswordEl = document.getElementById("login-password");
 const loginBtn        = document.getElementById("login-btn");
-const googleLoginBtn  = document.getElementById("google-login-btn");
 
 const logoutBtn  = document.getElementById("logout-btn");
 const userAvatar = document.getElementById("user-avatar");
@@ -111,13 +109,7 @@ loginBtn.addEventListener("click", async () => {
   finally { loginBtn.textContent = "Log In"; loginBtn.disabled = false; }
 });
 
-// ── Google sign in ──
-async function googleSignIn() {
-  try { await signInWithPopup(auth, provider); clearError(); }
-  catch (err) { if (err.code !== "auth/popup-closed-by-user") showError(friendlyError(err.code)); }
-}
-googleSignupBtn.addEventListener("click", googleSignIn);
-googleLoginBtn.addEventListener("click",  googleSignIn);
+
 
 // ── Log out ──
 logoutBtn.addEventListener("click", () => signOut(auth));
