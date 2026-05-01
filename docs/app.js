@@ -14,9 +14,6 @@ startBtn.addEventListener('click', () => {
     if (!started) { started = true; levelUp(); }
 });
 
-document.addEventListener('keydown', () => {
-    if (!started) startBtn.click();
-});
 
 function levelUp() {
     level++;
