@@ -45,9 +45,7 @@ body {
     align-items: center;
 }
 
-/* ══════════════════════════════
-       LOGO
-    ══════════════════════════════ */
+/* LOGO */
 .logo-wrap {
     position: relative;
     margin-bottom: 48px;
@@ -75,7 +73,6 @@ body {
             var(--c4), var(--c5), var(--c6),
             var(--c7), var(--c1));
     background-size: 200%;
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: shift 5s linear infinite;
@@ -101,9 +98,7 @@ body {
     font-weight: 500;
 }
 
-/* ══════════════════════════════
-       CARD
-    ══════════════════════════════ */
+/* LOGIN CARD */
 .card {
     width: 100%;
     background: var(--surface);
@@ -212,7 +207,7 @@ body {
     background: rgba(0, 207, 255, 0.04);
 }
 
-/* ── Submit button ── */
+/* Submit button */
 .btn {
     width: 100%;
     padding: 12px;
@@ -265,36 +260,6 @@ body {
     background: var(--border);
 }
 
-/* ── Google button ── */
-.btn-google {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text);
-    font-family: 'Figtree', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.btn-google:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.14);
-}
-
-.btn-google svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
-
 /* ── Error ── */
 #auth-error {
     font-size: 13px;
@@ -318,73 +283,3 @@ body {
     animation: cardIn 0.8s ease 0.7s forwards;
 }
 
-/* ══════════════════════════════
-       GAME PAGE
-    ══════════════════════════════ */
-#game-page {
-    display: none;
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    max-width: 640px;
-    padding: 20px;
-    align-items: center;
-    gap: 20px;
-    flex-direction: column;
-}
-
-.game-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px 20px;
-    margin-bottom: 16px;
-}
-
-.g-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 2rem;
-    background: linear-gradient(90deg, var(--c1), var(--c3), var(--c5), var(--c7), var(--c1));
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shift 5s linear infinite;
-}
-
-/* g-user, g-avatar, g-name, g-email, btn-out styles are defined in style.css */
-
-.game-body {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 40px;
-}
-
-.game-body h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.game-body p {
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.uid {
-    font-size: 11px;
-    color: rgba(232, 232, 240, 0.2);
-    margin-top: 6px;
-    font-family: monospace;
-}

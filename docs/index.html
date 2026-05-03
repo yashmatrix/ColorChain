@@ -31,46 +31,40 @@
 
 <body>
 
+    <!-- Login page -->
 
-    <!-- ═══════════════ AUTH PAGE ═══════════════ -->
     <div id="auth-page">
         <div class="page">
 
-            <!-- Logo -->
             <div class="logo-wrap">
                 <div class="logo-text">ColorChain</div>
                 <div class="logo-sub">Chain your colors. Beat the game.</div>
             </div>
-
-            <!-- Card -->
+            
             <div class="card">
                 <div class="tabs">
                     <button class="tab active" id="tab-signup">Sign up</button>
                     <button class="tab" id="tab-login">Log in</button>
                 </div>
 
-                <!-- Sign Up -->
                 <div id="signup-form">
                     <div class="form-body">
                         <div class="field">
                             <label>Email</label>
-                            <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" />
+                            <input type="email" id="signup-email" placeholder="you@example.com" />
                         </div>
                         <div class="field">
                             <label>Username</label>
-                            <input type="text" id="signup-username" placeholder="Choose a username"
-                                autocomplete="username" />
+                            <input type="text" id="signup-username" placeholder="Choose a username" />
                         </div>
                         <div class="field">
                             <label>Password</label>
-                            <input type="password" id="signup-password" placeholder="Min. 6 characters"
-                                autocomplete="new-password" />
+                            <input type="password" id="signup-password" placeholder="Min. 6 characters"/>
                         </div>
                         <button class="btn" id="signup-btn">Create Account</button>
                     </div>
                 </div>
 
-                <!-- Log In -->
                 <div id="login-form" style="display:none">
                     <div class="form-body">
                         <div class="field">
@@ -88,15 +82,11 @@
 
                 <div id="auth-error"></div>
             </div>
-            <!-- 
-            <div class="footer-note">
-                By continuing you agree to the <a href="#" style="color:var(--muted)">Terms of Service</a>
-            </div> -->
         </div>
     </div>
 
 
-    <!-- ═══════════════ GAME PAGE ═══════════════ -->
+    <!--  Game page  -->
     <div id="game-page">
 
         <div class="g-logo">ColorChain</div>
@@ -108,19 +98,14 @@
             <div class="game-btn violet" data-color="violet"></div>
         </div>
 
-        <!-- Leaderboard (sidebar, shown during game) -->
-
-        <!-- Improved Start Button -->
         <button id="startBtn" class="btn">
             Start
         </button>
 
-        <!-- User info — fixed bottom right (moved out of game-page flow) -->
         <div class="uid">uid: <span id="user-uid"></span></div>
 
     </div>
 
-    <!-- User info block — fixed bottom right -->
     <div class="g-user" id="g-user-block" style="display:none">
         <div class="g-avatar" id="user-avatar">?</div>
         <div>
@@ -131,17 +116,15 @@
     </div>
 
 
-    <!-- ═══════════════ GAME OVER OVERLAY ═══════════════ -->
+    <!--  GAME OVER OVERLAY  -->
     <div id="gameover-overlay">
         <div class="go-content">
 
-            <!-- Left: modal card -->
             <div class="go-modal">
 
                 <div class="go-icon">💀</div>
                 <div class="go-title">Game Over</div>
 
-                <!-- Score cards -->
                 <div class="go-scores">
                     <div class="go-score-card">
                         <div class="go-score-label">Score</div>
@@ -153,7 +136,6 @@
                     </div>
                 </div>
 
-                <!-- Play Again -->
                 <button id="go-play-again">
                     <span class="btn-inner">
                         <span class="btn-icon"></span>
@@ -162,12 +144,9 @@
                 </button>
 
             </div>
-
-            <!-- Right: leaderboard panel -->
             <div class="go-side-lb">
                 <div class="go-lb-title">Leaderboard</div>
                 <ol class="go-lb-list" id="go-lb-list">
-                    <!-- Populated by JS -->
                 </ol>
             </div>
 

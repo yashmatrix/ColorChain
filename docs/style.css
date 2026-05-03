@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@500;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&display=swap');
 
+:root {
+    --bg: #0b0b0e;
+    --surface: rgba(255, 255, 255, 0.035);
+    --border: rgba(255, 255, 255, 0.07);
+    --text: #e8e8f0;
+    --muted: rgba(232, 232, 240, 0.4);
+    --c1: #ff4560;
+    --c2: #ff8c00;
+    --c3: #ffe000;
+    --c4: #00e676;
+    --c5: #00cfff;
+    --c6: #a259ff;
+    --c7: #ff3cac;
+}
+
 
 *,
 *::before,
@@ -18,33 +33,54 @@ body {
     background-color: #000;
 }
 
-.button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: #aaa;
-    border: 2px solid #aaa;
-}
-
-#game-root {
-    min-height: 520px;
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 28px 20px 36px;
-    font-family: 'Orbitron', monospace;
+/* ══════════════════════════════
+       GAME PAGE
+    ══════════════════════════════ */
+#game-page {
+    display: none;
+    position: relative;
+    z-index: 10;
     width: 100%;
-    overflow: hidden;
+    max-width: 640px;
+    padding: 20px;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
 }
 
-#game-root::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
-    background-size: 44px 44px;
-    pointer-events: none;
+.game-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 20px;
+    margin-bottom: 16px;
 }
+
+.g-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--c1), var(--c3), var(--c5), var(--c7), var(--c1));
+    background-size: 200%;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shift 5s linear infinite;
+}
+
+@keyframes shift {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* g-user, g-avatar, g-name, g-email, btn-out styles are defined in style.css */
 
 #game-title {
     font-size: 1.15rem;
@@ -59,17 +95,8 @@ body {
 }
 
 #status {
-    font-size: .7rem;
-    font-weight: 500;
-    letter-spacing: .12em;
     color: #cccccc;
     margin-bottom: 22px;
-    text-align: center;
-    line-height: 1.9;
-    min-height: 2.8em;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 0 8px rgba(255, 255, 255, .2);
 }
 
 #board {
@@ -166,9 +193,6 @@ body {
     100% { background: #000 }
 }
 
-/* ══════════════════════════════
-   START BUTTON — Upgraded
-══════════════════════════════ */
 #startBtn {
     width: 20%;
     padding: 12px;
@@ -201,81 +225,7 @@ body {
     cursor: not-allowed;
     transform: none;
 }
-/* ══════════════════════════════
-   LEADERBOARD (inline, hidden by default)
-══════════════════════════════ */
-#leaderboard {
-    position: absolute;
-    width: 300px;
-    top: 16px;
-    right: 16px;
-    background: rgba(8, 8, 8, .94);
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-radius: 14px;
-    padding: 14px 18px;
-    min-width: 170px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 24px rgba(255, 255, 255, .06), inset 0 1px 0 rgba(255, 255, 255, .08);
-    z-index: 10;
-    display: none;
-    animation: lbIn .4s cubic-bezier(.34, 1.56, .64, 1);
-}
 
-@keyframes lbIn {
-    from { opacity: 0; transform: translateX(30px) scale(.93) }
-    to   { opacity: 1; transform: none }
-}
-
-#leaderboard h4 {
-    font-size: .58rem;
-    font-weight: 900;
-    letter-spacing: .22em;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, .5);
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
-    text-transform: uppercase;
-}
-
-#lb-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#lb-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    font-size: .65rem;
-    letter-spacing: .07em;
-    color: #aaa;
-    border-bottom: 1px solid rgba(255, 255, 255, .05);
-}
-
-#lb-list li:last-child { border-bottom: none; }
-
-#lb-list li .sv {
-    font-weight: 900;
-    font-size: .8rem;
-}
-
-#lb-list li:nth-child(1) .sv {
-    color: #ffd700;
-    text-shadow: 0 0 8px rgba(255, 215, 0, .7);
-}
-
-#lb-list li:nth-child(2) .sv {
-    color: #c0c0c0;
-    text-shadow: 0 0 7px rgba(192, 192, 192, .6);
-}
-
-#lb-list li:nth-child(3) .sv {
-    color: #cd7f32;
-    text-shadow: 0 0 7px rgba(205, 127, 50, .6);
-}
 
 .new-badge {
     font-size: .45rem;
@@ -385,7 +335,7 @@ body {
     to   { opacity: 1; letter-spacing: 0.15em; }
 }
 
-/* Score cards */
+/* scorecard */
 .go-scores {
     display: flex;
     gap: 14px;
@@ -566,9 +516,6 @@ body {
     transform: none;
 }
 
-/* ══════════════════════════════
-   USER INFO — Bottom Right
-══════════════════════════════ */
 .g-user {
     position: fixed;
     bottom: 20px;
@@ -644,7 +591,7 @@ body {
     background: rgba(255,255,255,0.08);
 }
 
-/* UID hidden by default — very subtle */
 .uid {
     display: none;
 }
+

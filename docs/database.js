@@ -74,21 +74,3 @@ export async function getLeaderboard() {
   }
 }
 
-// Listen to player's score in real-time (unchanged — used elsewhere if needed)
-export function watchPlayerScore(callback) {
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (!user) return;
-
-    const userScoreRef = ref(database, `players/${user.uid}`);
-    onValue(userScoreRef, (snapshot) => {
-      if (snapshot.exists()) {
-        callback(snapshot.val());
-      }
-    });
-  } catch (error) {
-    console.error("Error watching score:", error);
-  }
-}
