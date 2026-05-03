@@ -283,3 +283,59 @@ body {
     animation: cardIn 0.8s ease 0.7s forwards;
 }
 
+@media (max-width: 480px) {
+    .page {
+        padding: 20px 14px;
+    }
+
+    .logo-wrap {
+        margin-bottom: 32px;
+    }
+
+    .logo-text {
+        font-size: 40px;
+    }
+
+    .logo-sub {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+    }
+
+    .card {
+        padding: 24px 18px 20px;
+        border-radius: 16px;
+    }
+
+    .tabs {
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        font-size: 13px;
+        padding: 8px 0 10px;
+    }
+
+    .field input {
+        padding: 11px 12px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    #auth-error {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo-text {
+        font-size: 34px;
+    }
+
+    .card {
+        padding: 20px 14px 18px;
+    }
+}

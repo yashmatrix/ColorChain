@@ -595,3 +595,114 @@ body {
     display: none;
 }
 
+#board {
+    width: min(340px, 88vw);
+    height: min(340px, 88vw);
+}
+
+/* ── Tablet / small desktop ── */
+@media (max-width: 820px) {
+    /* Game-over: stack modal above leaderboard */
+    .go-content {
+        flex-direction: column;
+        align-items: center;
+        width: min(420px, 94vw);
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+
+    .go-modal {
+        width: 100%;
+        max-width: 100%;
+        padding: 32px 28px 28px;
+    }
+
+    .go-side-lb {
+        width: 100%;
+        padding: 24px 20px;
+    }
+}
+
+/* ── Mobile ── */
+@media (max-width: 540px) {
+    #game-page {
+        padding: 14px 12px;
+        gap: 14px;
+    }
+
+    .game-topbar {
+        padding: 10px 14px;
+        border-radius: 12px;
+    }
+
+    .g-logo {
+        font-size: 1.6rem;
+    }
+
+    #game-title {
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+    }
+
+    #status {
+        margin-bottom: 14px;
+        font-size: 0.9rem;
+    }
+
+    #startBtn {
+        width: auto;
+        min-width: 120px;
+        padding: 10px 20px;
+    }
+
+    /* Game-over modal tighter on phones */
+    .go-modal {
+        padding: 28px 20px 24px;
+        border-radius: 18px;
+    }
+
+    .go-icon {
+        font-size: 2.2rem;
+    }
+
+    .go-title {
+        font-size: 1.1rem;
+    }
+
+    .go-score-value {
+        font-size: 1.8rem;
+    }
+
+    .go-side-lb {
+        border-radius: 18px;
+        padding: 20px 16px;
+    }
+
+    /* User badge — narrower on mobile */
+    .g-user {
+        bottom: 12px;
+        right: 12px;
+        padding: 8px 10px 8px 8px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+
+    .g-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .g-name {
+        font-size: 0.7rem;
+    }
+
+    .g-email {
+        font-size: 0.52rem;
+    }
+
+    .btn-out {
+        font-size: 0.48rem;
+        padding: 5px 9px;
+    }
+}
