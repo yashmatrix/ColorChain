@@ -71,7 +71,7 @@ async function checkAns(idx) {
                 isNew:    p.uid === currentUid && p.highScore === finalScore,
             }));
 
-            window.showGameOver(finalScore, getHigh(), entries);
+            window.showGameOver(finalScore, getPlayerHighScore(), entries);
         }
     }
 }

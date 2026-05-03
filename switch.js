@@ -19,15 +19,18 @@
         // ── Game Over overlay helpers ──
         // Call window.showGameOver(score, best, leaderboardEntries, playerRank) from app.js
         // leaderboardEntries: [{ name, score, isPlayer }]
-        window.showGameOver = function (score, best, entries, playerRank) {
+        window.showGameOver = function (score, best, entries) {
             document.getElementById('go-score').textContent = score;
-            document.getElementById('go-best').textContent = best;
+            
 
             const list = document.getElementById('go-lb-list');
             list.innerHTML = '';
             (entries || []).forEach((entry, i) => {
                 const li = document.createElement('li');
-                if (entry.isPlayer) li.classList.add('highlighted');
+                if (entry.isPlayer) {
+                    li.classList.add('highlighted');
+                    document.getElementById('go-best').textContent = entry.score;
+                } 
                 li.innerHTML = `
                     <span class="go-lb-rank">${i + 1}</span>
                     <span class="go-lb-name">${entry.name || 'Anonymous'}${entry.isNew ? '<span class="go-new-badge">NEW</span>' : ''}</span>
